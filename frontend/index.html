@@ -1,0 +1,171 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FaceAttend | Attendance System</title>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+</head>
+<body>
+    <aside class="sidebar">
+        <div class="brand">
+            <div class="brand-icon"><i class="fa-solid fa-face-smile"></i></div>
+            <div>Face<span>Attend</span><small>SMART ATTENDANCE</small></div>
+        </div>
+
+        <p class="menu-label">MAIN MENU</p>
+        <nav>
+            <a href="#dashboard" class="nav-link active" data-page="dashboard">
+                <i class="fa-solid fa-border-all"></i> Dashboard
+            </a>
+            <a href="#students" class="nav-link" data-page="students">
+                <i class="fa-solid fa-users"></i> Students
+            </a>
+            <a href="#attendance" class="nav-link" data-page="attendance">
+                <i class="fa-regular fa-calendar-check"></i> Attendance Records
+            </a>
+        </nav>
+
+        <div class="sidebar-bottom">
+            <div class="status-dot"></div>
+            <div><strong>System Status</strong><small>Ready to operate</small></div>
+        </div>
+    </aside>
+
+    <main class="main-content">
+        <header class="topbar">
+            <div>
+                <p class="eyebrow">WELCOME BACK</p>
+                <h1 id="page-title">Dashboard</h1>
+            </div>
+            <div class="profile">
+                <div class="profile-avatar">S</div>
+                <div><strong>Admin</strong><small>Administrator</small></div>
+            </div>
+        </header>
+
+        <section id="dashboard-page" class="page">
+            <div class="welcome-banner">
+                <div>
+                    <span class="banner-tag">SMART CAMPUS SOLUTION</span>
+                    <h2>Attendance, made smarter.</h2>
+                    <p>Manage students and track attendance with face recognition.</p>
+                    <button class="primary-btn" id="view-students-btn">
+                        <i class="fa-solid fa-users"></i> Manage Students
+                    </button>
+                </div>
+                <div class="banner-art"><i class="fa-solid fa-user-check"></i></div>
+            </div>
+
+            <div class="section-heading">
+                <div><h2>Overview</h2><p>Your attendance system at a glance</p></div>
+                <span class="date-chip" id="today-date"></span>
+            </div>
+
+            <div class="stats-grid">
+                <article class="stat-card">
+                    <div class="stat-top"><span>Total Students</span><div class="stat-icon purple"><i class="fa-solid fa-users"></i></div></div>
+                    <h3 id="total-students">—</h3>
+                    <p>Registered in the system</p>
+                </article>
+                <article class="stat-card">
+                    <div class="stat-top"><span>Present Today</span><div class="stat-icon green"><i class="fa-solid fa-user-check"></i></div></div>
+                    <h3 id="present-today">—</h3>
+                    <p>Attendance marked today</p>
+                </article>
+                <article class="stat-card">
+                    <div class="stat-top"><span>Attendance Rate</span><div class="stat-icon blue"><i class="fa-solid fa-chart-line"></i></div></div>
+                    <h3 id="attendance-rate">—</h3>
+                    <p>Based on registered students</p>
+                </article>
+            </div>
+
+            <div class="section-heading">
+                <div><h2>Quick Actions</h2><p>Get things done faster</p></div>
+            </div>
+            <div class="quick-grid">
+                <button class="quick-card" data-go="students">
+                    <div class="quick-icon purple"><i class="fa-solid fa-user-plus"></i></div>
+                    <div><strong>Manage Students</strong><p>Add, view, and manage student details</p></div>
+                    <i class="fa-solid fa-arrow-right arrow"></i>
+                </button>
+                <button class="quick-card" data-go="attendance">
+                    <div class="quick-icon green"><i class="fa-solid fa-clipboard-check"></i></div>
+                    <div><strong>View Attendance</strong><p>Check student attendance records</p></div>
+                    <i class="fa-solid fa-arrow-right arrow"></i>
+                </button>
+            </div>
+        </section>
+
+        <section id="students-page" class="page hidden">
+            <div class="section-heading">
+                <div><h2>Student Management</h2><p>View and manage registered students</p></div>
+                <button class="primary-btn" id="show-add-form"><i class="fa-solid fa-plus"></i> Add Student</button>
+            </div>
+
+            <div id="student-form-card" class="panel hidden">
+                <h3 id="student-form-title">Add New Student</h3>
+                <form id="student-form">
+                    <input type="hidden" id="student-id">
+                    <div class="form-grid">
+                        <label>Full Name<input id="student-name" required placeholder="Enter student name"></label>
+                        <label>Roll Number<input id="student-roll" required placeholder="Enter roll number"></label>
+                        <label>Course<input id="student-course" required placeholder="e.g. MCA"></label>
+                    </div>
+                    <div class="form-actions">
+                        <button type="button" class="secondary-btn" id="cancel-form">Cancel</button>
+                        <button type="submit" class="primary-btn">Save Student</button>
+                    </div>
+                </form>
+            </div>
+
+            <div class="panel">
+                <div class="table-toolbar">
+                    <div><h3>All Students</h3><p>Student directory</p></div>
+                    <input type="search" id="student-search" placeholder="Search students...">
+                </div>
+                <div class="table-wrap">
+                    <table>
+                        <thead><tr><th>ID</th><th>Student Name</th><th>Roll Number</th><th>Course</th><th>Actions</th></tr></thead>
+                        <tbody id="students-table">
+                            <tr><td colspan="5" class="empty">Loading students...</td></tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </section>
+
+        <section id="attendance-page" class="page hidden">
+            <div class="section-heading">
+                <div><h2>Attendance Records</h2><p>Review attendance marked by the system</p></div>
+                <button class="secondary-btn" id="refresh-attendance"><i class="fa-solid fa-rotate"></i> Refresh</button>
+            </div>
+            <div class="stats-grid attendance-summary">
+                <article class="stat-card"><div class="stat-top"><span>Present Today</span><div class="stat-icon green"><i class="fa-solid fa-check"></i></div></div><h3 id="attendance-total">—</h3><p>Recorded for today</p></article>
+            </div>
+            <div class="panel">
+                <div class="table-toolbar">
+                    <div><h3>Attendance History</h3><p>Recorded student entries</p></div>
+                    <input type="date" id="attendance-date">
+                </div>
+                <div class="table-wrap">
+                    <table>
+                        <thead><tr><th>Student</th><th>Roll Number</th><th>Date</th><th>Time</th><th>Status</th></tr></thead>
+                        <tbody id="attendance-table">
+                            <tr><td colspan="5" class="empty">Attendance records will appear here.</td></tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </section>
+
+        <footer>© 2026 FaceAttend <span>Smart Face Recognition Attendance System</span></footer>
+    </main>
+
+    <div id="toast" class="toast"></div>
+    <script src="script.js"></script>
+</body>
+</html>
